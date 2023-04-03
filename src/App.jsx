@@ -9,7 +9,7 @@ function App() {
 	return (
 		<div className="App">
 	      <ExactImage width={200} src={(imageWidth,dpr)=>{		return "https://dummyimage.com/" +  imageWidth * dpr 	  }} />
-		  <ExactImage width={400} src={(imageWidth,dpr)=>{		return "https://placekitten.com/" +  imageWidth * dpr 	  }} />
+		  <ExactImage width={400} src={(imageWidth,dpr)=>{		return "https://picsum.photos/id/237/" +  imageWidth * dpr 	  }} />
 
 		</div>
 	);
