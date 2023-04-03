@@ -1,19 +1,16 @@
 import { useState,useRef,useMemo } from 'react';
-import  useComputedStyle  from './useComputedStyle';
 import useDpr from "./useDPR";
 import useWindowSize from "./useWindowSize";
-
 
 function ExactImage({ src, alt, ...rest }) {
   const imgRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const computedStyle = useComputedStyle(imgRef);
 	const dpr = useDpr();
-  const size = useWindowSize()
-  const imageWidth = Math.min(800,size.width);
+  const windowSize = useWindowSize()
+  const imageWidth = Math.min(800,windowSize.width);
 	const dynamicSrc = useMemo(() => {
 		return "https://dummyimage.com/" + imageWidth * dpr;
-	}, [dpr,size]);
+	}, [dpr,windowSize]);
   const handleImageLoaded = () => {
     setIsLoaded(true);
   };
@@ -28,7 +25,6 @@ function ExactImage({ src, alt, ...rest }) {
         onLoad={handleImageLoaded}
         style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 0.3s',width:imageWidth+'px' }}
       />
-        computedStyleWidth: {computedStyle && computedStyle.getPropertyValue("width")}
     </>
   );
 }
