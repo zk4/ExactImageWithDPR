@@ -1,41 +1,35 @@
-import { useState } from 'react';
-import  useImageSize  from './useImageSize';
+import { useState,useRef,useMemo } from 'react';
+import  useComputedStyle  from './useComputedStyle';
+import useDpr from "./useDPR";
+import useWindowSize from "./useWindowSize";
+
 
 function ExactImage({ src, alt, ...rest }) {
-  const [imgRef, imageCssWidth] = useImageSize(src);
+  const imgRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
-
+  const computedStyle = useComputedStyle(imgRef);
+	const dpr = useDpr();
+  const size = useWindowSize()
+  const imageWidth = Math.min(800,size.width);
+	const dynamicSrc = useMemo(() => {
+		return "https://dummyimage.com/" + imageWidth * dpr;
+	}, [dpr,size]);
   const handleImageLoaded = () => {
     setIsLoaded(true);
   };
 
   return (
-    <div style={{ position: 'relative' }}>
+    <>
       <img
         {...rest}
         ref={imgRef}
-        src={src}
+        src={dynamicSrc}
         alt={alt}
         onLoad={handleImageLoaded}
-        style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
+        style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 0.3s',width:imageWidth+'px' }}
       />
-      {!isLoaded && <span>Loading...</span>}
-      {imageCssWidth && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '0',
-            right: '0',
-            background: '#fff',
-            padding: '4px 8px',
-            fontSize: '12px',
-            lineHeight: '16px',
-          }}
-        >
-          {imageCssWidth}
-        </div>
-      )}
-    </div>
+        computedStyleWidth: {computedStyle && computedStyle.getPropertyValue("width")}
+    </>
   );
 }
 

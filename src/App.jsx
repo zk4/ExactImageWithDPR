@@ -14,9 +14,7 @@ function App() {
 		<div className="App">
 			dpr is: {dpr}
       size is: {size.width}
-			<img style={{width:"1200px"}} src={ src } />
-      <ExactImage size={ {width:"200px"} } src={src}/>
-			<img src={ src } />
+      <ExactImage size={ {width:"200px"} } />
 		</div>
 	);
 }
