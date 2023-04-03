@@ -5,16 +5,12 @@ import useWindowSize from "./useWindowSize";
 import ExactImage from './ExactImage'
 
 function App() {
-	const dpr = useDpr();
-  const size = useWindowSize()
-	const src = useMemo(() => {
-		return "https://dummyimage.com/" + size.width * dpr;
-	}, [dpr,size]);
+
 	return (
 		<div className="App">
-			dpr is: {dpr}
-      size is: {size.width}
-      <ExactImage size={ {width:"200px"} } />
+	      <ExactImage width={200} src={(imageWidth,dpr)=>{		return "https://dummyimage.com/" +  imageWidth * dpr 	  }} />
+		  <ExactImage width={400} src={(imageWidth,dpr)=>{		return "https://placekitten.com/" +  imageWidth * dpr 	  }} />
+
 		</div>
 	);
 }
