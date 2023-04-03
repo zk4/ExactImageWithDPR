@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import "./App.css";
 import useDpr from "./useDPR";
 import useWindowSize from "./useWindowSize";
+import ExactImage from './ExactImage'
 
 function App() {
 	const dpr = useDpr();
@@ -14,6 +15,7 @@ function App() {
 			dpr is: {dpr}
       size is: {size.width}
 			<img style={{width:"1200px"}} src={ src } />
+      <ExactImage size={ {width:"200px"} } src={src}/>
 			<img src={ src } />
 		</div>
 	);
